@@ -1,4 +1,4 @@
-package com.makersacademy.chitter;
+package com.makersacademy.chitter.model;
 
 import lombok.Data;
 
@@ -18,13 +18,17 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
-    private String passwordHash;
+    private String password;
+
+    @Column(name = "passwordConfirm", nullable = false)
+    private String passwordConfirm;
 
     private User() {}
 
-    public User(String email, String passwordHash) {
+    public User(String email, String passwordHash, String passwordConfirmHash) {
         this.email = email;
-        this.passwordHash = passwordHash;
+        this.password = passwordHash;
+        this.passwordConfirm = passwordConfirmHash;
     }
 
 
