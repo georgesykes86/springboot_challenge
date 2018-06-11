@@ -14,8 +14,8 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private  Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -25,8 +25,8 @@ public class User {
 
     private User() {}
 
-    public User(String email, String passwordHash, String passwordConfirmHash) {
-        this.email = email;
+    public User(String username, String passwordHash, String passwordConfirmHash) {
+        this.username = username;
         this.password = passwordHash;
         this.passwordConfirm = passwordConfirmHash;
     }
