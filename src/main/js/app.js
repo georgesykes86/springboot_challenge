@@ -16,6 +16,7 @@ class App extends React.Component {
 
     componentDidMount() {
         client({method: 'GET', path: '/api/profile/users', headers: {'Accept': 'application/schema+json'}}).then(response => {
+              console.log(response);
               this.setState({attributes: response.entity.properties});
               console.log(this.state);
             });
@@ -24,7 +25,7 @@ class App extends React.Component {
     onCreate(newUser) {
         client({
             method: 'POST',
-            path: '/api/users',
+            path: '/users',
             entity: newUser,
             headers: {'Content-Type': 'application/json'}
             })
@@ -33,7 +34,7 @@ class App extends React.Component {
 
     render() {
         return (
-          <CreateUserDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
+            <CreateUserDialog attributes={this.state.attributes} onCreate={this.onCreate} />
         )
     }
 }

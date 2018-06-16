@@ -23,18 +23,18 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    @RequestMapping(value = "/users/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        return "login";
     }
 
     @RequestMapping(value="/users", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "login";
         }
 
         userService.save(userForm);
@@ -44,7 +44,7 @@ public class UserController {
         return "redirect:/peeps";
     }
 
-    @RequestMapping(value="/sessions/new" method = RequestMethod.GET)
+    @RequestMapping(value="/register", method = RequestMethod.GET)
     public String login(Model model, String error, String logout){
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid");

@@ -1,12 +1,17 @@
 package com.makersacademy.chitter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
+@ToString(exclude = "password")
 @Entity
-@Table(name = "`User`")
+@Table(name = "`Users`")
 public class User {
 
     @Id
@@ -23,7 +28,11 @@ public class User {
     @Column(name = "passwordConfirm", nullable = false)
     private String passwordConfirm;
 
-    private User() {}
+    @OneToMany(mappedBy="user")
+    @JsonIgnore
+    private List<Peep> peeps = new ArrayList<>();
+
+    public User() {}
 
     public User(String username, String passwordHash, String passwordConfirmHash) {
         this.username = username;

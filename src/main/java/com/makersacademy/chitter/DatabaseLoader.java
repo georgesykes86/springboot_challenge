@@ -25,7 +25,10 @@ public class DatabaseLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         this.peepRepository.deleteAll();
         this.userRepository.deleteAll();
-        User george = this.userRepository.save(new User("george@email.com", "password", "password"));
-        this.peepRepository.save(new Peep("Hey, folks! Welcome to Chitter!", george));
+        User george = new User("george@email.com", "password", "password");
+        Peep peep = new Peep("First peep");
+        peep.setUser(george);
+        this.peepRepository.save(new Peep("Hey, folks! Welcome to Chitter!"));
+        this.userRepository.save(george);
     }
 }
