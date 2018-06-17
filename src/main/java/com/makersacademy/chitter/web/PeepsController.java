@@ -6,6 +6,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PeepsController {
 
-    @RequestMapping(value = "/peeps")
-    public String index() { return "home"; }
+
 }

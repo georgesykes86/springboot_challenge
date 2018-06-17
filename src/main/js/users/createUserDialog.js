@@ -12,39 +12,44 @@ class CreateUserDialog extends React.Component {
         e.preventDefault();
         var newUser = {};
         Object.keys(this.props.attributes).forEach(attribute => {
-            console.log(attribute)
             newUser[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
         });
         this.props.onCreate(newUser);
         Object.keys(this.props.attributes).forEach(attribute => {
             ReactDOM.findDOMNode(this.refs[attribute]).value = '';
         });
-        window.location = "#";
+    }
+
+    sortKeys(attributes) {
+        var order = ["firstname", "lastname", "username", "email", "password", "passwordconfirm"];
+        var keyOrder = [];
+        Object.keys(attributes).forEach( key => {
+            var index = order.indexOf(key.toString().toLowerCase());
+            if (index >= 0) {
+                keyOrder.push([key, attributes[key]["title"], index]);
+            }
+        });
+        keyOrder.sort((a, b) => {
+            return a[2] - b[2];
+        });
+        return keyOrder;
     }
 
     render() {
 
         return (
-            <div>
-                <a href="#createUser">Register</a>
-
-                <div id="createUser" className="modalDialog">
-                    <div>
-                        <a href="#" title="Close" className="close">X</a>
-
-                        <h2>Register</h2>
+                  <div>
+                      <h2>Register</h2>
 
                         <form>
-                            {Object.keys(this.props.attributes).map((attribute,index) => (
+                            {this.sortKeys(this.props.attributes).map((attribute,index) => (
                                     <p key={index}>
-                                        <input type="text" placeholder={attribute.toString()} ref={attribute.toString()} className="field" />
+                                        <input type="text" placeholder={attribute[1].toString()} ref={attribute[0].toString()} className="field" />
                                     </p>
                             ))}
                             <button onClick={this.handleSubmit}>Create</button>
                         </form>
                     </div>
-                </div>
-            </div>
 
         )
     }

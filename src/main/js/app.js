@@ -4,6 +4,7 @@ const client = require('./client');
 
 import Peeps from './peeps/peeps'
 import CreateUserDialog from './users/createUserDialog'
+import LoginForm from './users/loginForm'
 
 
 class App extends React.Component {
@@ -16,9 +17,7 @@ class App extends React.Component {
 
     componentDidMount() {
         client({method: 'GET', path: '/api/profile/users', headers: {'Accept': 'application/schema+json'}}).then(response => {
-              console.log(response);
               this.setState({attributes: response.entity.properties});
-              console.log(this.state);
             });
     }
 
@@ -29,12 +28,18 @@ class App extends React.Component {
             entity: newUser,
             headers: {'Content-Type': 'application/json'}
             })
+            .then(console.log)
     }
 
 
     render() {
+        let error = null;
         return (
-            <CreateUserDialog attributes={this.state.attributes} onCreate={this.onCreate} />
+            <div>
+                <CreateUserDialog attributes={this.state.attributes} onCreate={this.onCreate} />
+                <LoginForm />
+                <p> {error} </p>
+            </div>
         )
     }
 }

@@ -25,10 +25,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "passwordConfirm", nullable = false)
+    @Column(name = "passwordConfirm", nullable = true)
     private String passwordConfirm;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="user")
     @JsonIgnore
     private List<Peep> peeps = new ArrayList<>();
 
